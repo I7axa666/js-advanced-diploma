@@ -13,4 +13,7 @@
  * */
 export default class Team {
   // TODO: write your logic here
+  constructor(list) {
+    this.characters = [...list];
+  }
 }
