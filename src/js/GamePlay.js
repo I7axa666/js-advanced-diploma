@@ -69,10 +69,11 @@ export default class GamePlay {
    * @param positions array of PositionedCharacter objects
    */
   redrawPositions(positions) {
+    /* eslint-disable-next-line */
     for (const cell of this.cells) {
       cell.innerHTML = '';
     }
-
+    /* eslint-disable-next-line */
     for (const position of positions) {
       const cellEl = this.boardEl.children[position.position];
       const charEl = document.createElement('div');

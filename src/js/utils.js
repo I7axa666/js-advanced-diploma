@@ -55,3 +55,15 @@ export function calcHealthLevel(health) {
 
   return 'high';
 }
+
+export function getCharacter(index, list) {
+  const { character } = list.find((anyCharacter) => anyCharacter.position === index);
+  return character;
+}
+
+export function getColorTeam(type) {
+  if (['bowman', 'swordsman', 'magician'].includes(type)) {
+    return 'white';
+  }
+  return 'black';
+}
