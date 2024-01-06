@@ -22,7 +22,7 @@
  * calcTileType(7, 7); // 'left'
  * ```
  * */
-export function calcTileType(index, boardSize) {
+export function calcTileType(index) {
   // TODO: ваш код будет тут
   if (index === 0) {
     return 'top-left';
@@ -66,4 +66,67 @@ export function getColorTeam(type) {
     return 'white';
   }
   return 'black';
+}
+
+function getPossible(currentCell, distance) {
+  const row = Math.floor(currentCell / 8);
+  const col = currentCell % 8;
+
+  const moves = [];
+
+  const directions = [
+    { row: -1, col: 0 },
+    { row: 1, col: 0 },
+    { row: 0, col: -1 },
+    { row: 0, col: 1 },
+    { row: -1, col: -1 },
+    { row: -1, col: 1 },
+    { row: 1, col: -1 },
+    { row: 1, col: 1 },
+  ];
+
+  for (const dir of directions) {
+    for (let i = 1; i <= distance; i++) {
+      const newRow = row + dir.row * i;
+      const newCol = col + dir.col * i;
+
+      if (newRow >= 0 && newRow < 8 && newCol >= 0 && newCol < 8) {
+        moves.push(newRow * 8 + newCol);
+      }
+    }
+  }
+
+  return moves;
+}
+
+export function canMove(type, index) {
+  if (type === 'swordsman' || type === 'undead') {
+    return getPossible(index, 4);
+  }
+  if (type === 'bowman' || type === 'vampire') {
+    return getPossible(index, 2);
+  }
+  if (type === 'magician' || type === 'daemon') {
+    return getPossible(index, 1);
+  }
+}
+
+export function canAttack(type, index) {
+  if (type === 'swordsman' || type === 'undead') {
+    return getPossible(index, 1);
+  }
+  if (type === 'bowman' || type === 'vampire') {
+    return getPossible(index, 2);
+  }
+  if (type === 'magician' || type === 'daemon') {
+    return getPossible(index, 4);
+  }
+}
+
+export function getTeamInfo(positionCharacters, team) {
+  return positionCharacters.filter(
+    (obj1) => team.characters.some(
+      (obj2) => obj1.character.type === obj2.type,
+    ),
+  );
 }

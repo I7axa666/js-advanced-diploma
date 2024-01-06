@@ -14,6 +14,10 @@
       "no-new": 0,
       "no-alert": "off",
       "no-bitwise": "off",
-      "no-plusplus": "off"
+      "no-plusplus": "off",
+      "consistent-return": "off",
+      "class-methods-use-this": "off",
+      "no-restricted-syntax": "off",
+      "guard-for-in": "off"
     }
 }

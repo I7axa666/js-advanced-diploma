@@ -24,4 +24,19 @@ export default class Character {
       throw new Error('Нельзя создать персонаж из базового класса');
     }
   }
+
+  /* eslint no-mixed-operators: "error" */
+  levelUp() {
+    this.level += 1;
+    this.attack = Math.round(Math.max(this.attack, this.attack * (80 + this.health) / 100));
+    this.defence = Math.round(Math.max(this.defence, this.defence * (80 + this.health) / 100));
+
+    const health = this.health + 80;
+
+    if (health > 100) {
+      this.health = 100;
+    } else {
+      this.health = health;
+    }
+  }
 }

@@ -1,6 +1,6 @@
 import Chatacter from '../js/Character';
 import Bowman from '../js/characters/bowman';
-import Deamon from '../js/characters/deamon';
+import Daemon from '../js/characters/daemon';
 import Magician from '../js/characters/magician';
 import Swordsman from '../js/characters/swordsman';
 import Undead from '../js/characters/undead';
@@ -15,7 +15,7 @@ test('', () => {
 
 test.each([
   [new Bowman(1), Chatacter],
-  [new Deamon(1), Chatacter],
+  [new Daemon(1), Chatacter],
   [new Magician(1), Chatacter],
   [new Swordsman(1), Chatacter],
   [new Undead(1), Chatacter],
@@ -26,7 +26,7 @@ test.each([
 
 test.each([
   [Bowman, 1, 25, 25, 50, 'bowman'],
-  [Deamon, 1, 10, 10, 50, 'daemon'],
+  [Daemon, 1, 10, 10, 50, 'daemon'],
   [Magician, 1, 10, 40, 50, 'magician'],
   [Swordsman, 1, 40, 10, 50, 'swordsman'],
   [Undead, 1, 40, 10, 50, 'undead'],
