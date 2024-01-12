@@ -44,12 +44,15 @@ export default class GameController {
   init() {
     // TODO: add event listeners to gamePlay events
     // TODO: load saved stated from stateService
-    if (localStorage.length > 0) {
-      this.loadGame();
-    } else {
-      this.gamePlay.drawUi(Object.values(themes)[0]);
-      this.startPositions();
-    }
+    // if (localStorage.state) {
+    //   this.loadGame();
+    // } else {
+    //   this.gamePlay.drawUi(Object.values(themes)[0]);
+    //   this.startPositions();
+    // }
+
+    this.gamePlay.drawUi(Object.values(themes)[0]);
+    this.startPositions();
 
     this.playerListener();
   }
