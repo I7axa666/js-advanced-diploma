@@ -23,7 +23,10 @@ export default class GameState {
       const character = new charactersList[obj.character.type](obj.character.level);
 
       for (const key in obj.character) {
-        character.key = obj.character[key];
+        if (character[key]) {
+          // console.log(key, character[key], obj.character[key]);
+          character[key] = obj.character[key];
+        }
       }
 
       positionCharacters.push(new PositionedCharacter(

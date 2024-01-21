@@ -103,13 +103,14 @@ export default class GameController {
 
     if (field[index].childNodes.length !== 0 && this.attack) {
       const posIndex = this.positionCharacters.findIndex((obj) => obj.position === index);
-      this.gamePlay.showDamage(index, this.character.attack).then(() => {
-        const characterAttack = this.character.attack;
-        const characterDefence = this.positionCharacters[posIndex].character.defence;
-        this.positionCharacters[posIndex].character.health -= Math.round(Math.max(
-          characterAttack - characterDefence,
-          characterAttack * 0.1,
-        ));
+      const characterNormalAttack = this.character.attack;
+      const characterDefence = this.positionCharacters[posIndex].character.defence;
+      const characterAttack = Math.round(Math.max(
+        characterNormalAttack - characterDefence,
+        characterNormalAttack * 0.1,
+      ));
+      this.gamePlay.showDamage(index, characterAttack).then(() => {
+        this.positionCharacters[posIndex].character.health -= characterAttack;
 
         if (this.positionCharacters[posIndex].character.health < 0) {
           this.positionCharacters.splice(posIndex, 1);
@@ -222,17 +223,17 @@ export default class GameController {
             (obj) => obj.position === playerTeam[i].position,
           );
 
+          const characterNormalAttack = computerTeam[j].character.attack;
+          const characterDefence = this.positionCharacters[posIndex].character.defence;
+          const characterAttack = Math.round(Math.max(
+            characterNormalAttack - characterDefence,
+            characterNormalAttack * 0.1,
+          ));
           return this.gamePlay.showDamage(
             playerTeam[i].position,
-            computerTeam[j].character.attack,
+            characterAttack,
           ).then(() => {
-            const characterAttack = computerTeam[j].character.attack;
-            const characterDefence = this.positionCharacters[posIndex].character.defence;
-            this.positionCharacters[posIndex].character.health -= Math.round(Math.max(
-              characterAttack - characterDefence,
-              characterAttack * 0.1,
-            ));
-
+            this.positionCharacters[posIndex].character.health -= characterAttack;
             if (this.positionCharacters[posIndex].character.health < 0) {
               this.positionCharacters.splice(posIndex, 1);
               this.gamePlay.deselectCell(playerTeam[i].position);
@@ -324,6 +325,7 @@ export default class GameController {
 
   loadGame() {
     this.positionCharacters = GameState.from(this.stateService.load());
+    // console.log(this.positionCharacters);
 
     const whiteList = [];
     const blackList = [];
@@ -347,6 +349,7 @@ export default class GameController {
 
   saveGame() {
     localStorage.clear();
+    // console.log(this.positionCharacters)
     this.stateService.save(this.positionCharacters);
   }
 }
